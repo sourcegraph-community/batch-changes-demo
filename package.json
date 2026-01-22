@@ -1,0 +1,18 @@
+{
+  "name": "@podcast-index/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Podcast Index - Mono repo demo for Sourcegraph batch changes",
+  "scripts": {
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "web-app": "pnpm --filter @podcast-index/web-app dev",
+    "api-service": "pnpm --filter @podcast-index/api-service dev"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
