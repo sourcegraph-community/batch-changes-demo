@@ -151,21 +151,21 @@ export const episodes: Episode[] = [
 ];
 
 export function getEpisodes(): Episode[] {
-  console.log('getEpisodes: fetching all episodes');
+  logger.info('getEpisodes: fetching all episodes');
   return episodes;
 }
 
 export function getEpisodeById(id: string): Episode | undefined {
-  console.log('getEpisodeById: looking up episode with id:', id);
+  logger.info('getEpisodeById: looking up episode with id', { id });
   const episode = episodes.find((ep) => ep.id === id);
   if (!episode) {
-    console.warn('getEpisodeById: episode not found for id:', id);
+    logger.warn('getEpisodeById: episode not found for id', { id });
   }
   return episode;
 }
 
 export function searchEpisodes(query: string): Episode[] {
-  console.log('searchEpisodes: searching for query:', query);
+  logger.info('searchEpisodes: searching for query', { query });
   const lowerQuery = query.toLowerCase();
   const results = episodes.filter(
     (ep) =>
@@ -173,20 +173,20 @@ export function searchEpisodes(query: string): Episode[] {
       ep.description.toLowerCase().includes(lowerQuery) ||
       ep.podcastName.toLowerCase().includes(lowerQuery)
   );
-  console.log('searchEpisodes: found', results.length, 'matching episodes');
+  logger.info('searchEpisodes: found', { value: results.length, 'matching episodes' });
   return results;
 }
 
 export function getPodcasts(): Podcast[] {
-  console.log('getPodcasts: fetching all podcasts');
+  logger.info('getPodcasts: fetching all podcasts');
   return podcasts;
 }
 
 export function getPodcastById(id: string): Podcast | undefined {
-  console.log('getPodcastById: looking up podcast with id:', id);
+  logger.info('getPodcastById: looking up podcast with id', { id });
   const podcast = podcasts.find((p) => p.id === id);
   if (!podcast) {
-    console.warn('getPodcastById: podcast not found for id:', id);
+    logger.warn('getPodcastById: podcast not found for id', { id });
   }
   return podcast;
 }
@@ -194,22 +194,22 @@ export function getPodcastById(id: string): Podcast | undefined {
 const subscribers = new Map<string, Set<string>>();
 
 export function subscribe(podcastId: string, email: string): boolean {
-  console.log('subscribe: attempting to subscribe email:', email, 'to podcast:', podcastId);
+  logger.info('subscribe: attempting to subscribe email', { email, 'to podcast:', podcastId });
   if (!subscribers.has(podcastId)) {
     subscribers.set(podcastId, new Set());
   }
   const podcastSubscribers = subscribers.get(podcastId)!;
   if (podcastSubscribers.has(email)) {
-    console.log('subscribe: email already subscribed:', email);
+    logger.info('subscribe: email already subscribed', { email });
     return false;
   }
   podcastSubscribers.add(email);
-  console.log('subscribe: new subscription added, total subscribers:', podcastSubscribers.size);
+  logger.info('subscribe: new subscription added, total subscribers', { podcastSubscribers.size });
   return true;
 }
 
 export function getSubscriberCount(podcastId: string): number {
   const count = subscribers.get(podcastId)?.size ?? 0;
-  console.log('getSubscriberCount: podcast', podcastId, 'has', count, 'subscribers');
+  logger.info('getSubscriberCount: podcast', { value: podcastId, 'has', count, 'subscribers' });
   return count;
 }

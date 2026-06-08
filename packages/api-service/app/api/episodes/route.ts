@@ -1029,23 +1029,23 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const id = searchParams.get('id');
 
-  console.log('Fetching episodes, id:', id);
+  logger.info('Fetching episodes, id', { id });
 
   if (id) {
     const episode = getEpisodeById(id);
     if (!episode) {
-      console.error('Episode not found:', id);
+      logger.error('Episode not found', { id });
       return NextResponse.json(
         { error: 'Episode not found' },
         { status: 404 }
       );
     }
-    console.log('Found episode:', episode.title);
+    logger.info('Found episode', { episode.title });
     return NextResponse.json(episode);
   }
 
   const episodes = getEpisodes();
-  console.log('Returning', episodes.length, 'episodes');
+  logger.info('Returning', { value: episodes.length, 'episodes' });
   return NextResponse.json({
     episodes,
     total: episodes.length,
