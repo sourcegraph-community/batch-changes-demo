@@ -20,6 +20,6 @@
     "react-dom": "~19.0.0"
   },
   "devDependencies": {
-    "react-server-dom-webpack": "19.x"
+    "react-server-dom-webpack": "^19.3.0"
   }
 }
